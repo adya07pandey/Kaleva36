@@ -29,6 +29,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
         const itemRes = await getMenuItems();
         setItems(itemRes.data);
       } catch (error) {
+        console.log(error)
         toast.error("Something went wrong!");
       }
     };
@@ -40,6 +41,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
       setLoading(true);
       const res = await getOrders();
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong!");
     } finally {
       setLoading(false);
@@ -230,6 +232,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
 
     closeForm();
   } catch (error) {
+    console.log(error)
     toast.error("Something went wrong!");
   }
 };
