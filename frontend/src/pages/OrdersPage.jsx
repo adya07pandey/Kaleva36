@@ -17,7 +17,6 @@ const OrdersPage = () => {
       setLoading(true);
       const res = await getOrders();
       setOrders(res.data);
-      console.log(res.data);
       setOrders(res.data);
     } catch (error) {
       console.log(error);
@@ -29,7 +28,6 @@ const OrdersPage = () => {
     try {
       setLoading(true);
       const res = await getCustomers();
-      console.log(res.data);
       setCustomers(res.data);
     } catch (error) {
       console.log(error);

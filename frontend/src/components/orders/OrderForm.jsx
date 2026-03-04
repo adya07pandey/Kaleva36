@@ -37,7 +37,6 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
     try {
       setLoading(true);
       const res = await getOrders();
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     } finally {
