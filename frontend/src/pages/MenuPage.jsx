@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuForm from "../components/menu/MenuForm";
 import "../index.css";
-import { getMenuItems } from "../services/menuServices";
+import { deleteMenuItem, getMenuItems } from "../services/menuServices";
 import { useEffect } from "react";
 
 const MenuPage = () => {
@@ -25,6 +25,18 @@ const MenuPage = () => {
     useEffect(() => {
         fetchItems();
     }, []);
+
+    const handleDelete = async (id) => {
+  const confirmDelete = window.confirm("Are you sure?");
+  if (!confirmDelete) return;
+
+  try {
+    await deleteMenuItem(id);
+    fetchItems();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
     return (
         <div>
@@ -50,13 +62,20 @@ const MenuPage = () => {
                     ) : items.length === 0 ? (
                         <p>No menu items found.</p>
                     ) : (
-                        
-                        items.map((item) => (
+
+                        (Array.isArray(items) ? items : []).map((item) => (
                             <div key={item.id} className="menu-card">
                                 <p>{item.name}</p>
                                 <p>{item.unit}kg</p>
                                 <p>₹{item.price}</p>
+                                <button
+                                    className="delete-btn"
+                                    onClick={() => handleDelete(item.id)}
+                                >
+                                    x
+                                </button>
                             </div>
+
                         ))
                     )}
                 </div>

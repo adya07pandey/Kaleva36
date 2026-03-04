@@ -16,7 +16,7 @@ const OrdersPage = () => {
     try {
       setLoading(true);
       const res = await getOrders();
-      setOrders(res.data);
+      // console.log("Orders API response:", res.data);
       setOrders(res.data);
     } catch (error) {
       console.log(error);
@@ -90,7 +90,7 @@ const OrdersPage = () => {
           ) : orders.length === 0 ? (
             <p>No Orders Yet</p>
           ) : (
-            orders.map((order) => {
+            (Array.isArray(orders) ? orders : []).map((order) => {
               const customer = getCustomerDetails(order.customerId);
               return (
                 <div key={order.id} className={`order-card ${order.status === "done" ? "done" : "ongoing"}`}>

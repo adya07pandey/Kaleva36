@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getCustomers, createCustomer } from "../../services/customerService";
 import { getMenuItems } from "../../services/menuServices";
 import { createOrder, getOrders, updateOrder } from "../../services/orderService";
+import { toast } from "react-toastify";
 
 const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
   const [customers, setCustomers] = useState([]);
@@ -21,13 +22,13 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const custRes = await getCustomers();
-        setCustomers(custRes.data);
+        const res = await getCustomers();
+        setCustomers(Array.isArray(res.data) ? res.data : res.data.data || []);
 
         const itemRes = await getMenuItems();
         setItems(itemRes.data);
       } catch (error) {
-        console.log(error);
+        toast.error("Something went wrong!");
       }
     };
 
@@ -38,7 +39,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
       setLoading(true);
       const res = await getOrders();
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }
@@ -74,7 +75,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
       return;
     }
 
-    const filtered = customers.filter((customer) =>
+    const filtered = (Array.isArray(customers) ? customers : []).filter((customer) =>
       customer.name.toLowerCase().includes(value.toLowerCase())
     );
 
@@ -181,7 +182,7 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
   const handleSubmit = async () => {
   try {
     if(!customerName){
-      alert("CustomerName should be filled")
+      toast.error("Customer name should be filled");
       return;
     }
     let customerId;
@@ -219,16 +220,16 @@ const OrderForm = ({ closeForm, editOrder, refreshOrders }) => {
     if (isEditMode) {
       await updateOrder(editOrder.id, payload);
       await refreshOrders();
-      alert("Order Updated!");
+      toast.success("Order Updated!");
     } else {
       await createOrder(payload);
       await refreshOrders();
-      alert("Order Created!");
+      toast.success("Order Created!");
     }
 
     closeForm();
   } catch (error) {
-    console.log(error);
+    toast.error("Something went wrong!");
   }
 };
   // ------------------------

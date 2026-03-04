@@ -56,3 +56,14 @@ export const getMenuItems = async (req, res, next) => {
   }
 };
 
+export const deleteMenuItem = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await db.collection("menuItems").doc(id).delete();
+
+    res.json({ message: "Menu item deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

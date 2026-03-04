@@ -10,20 +10,20 @@ const MenuForm = ({ closeForm }) => {
 
     const handleSubmit = async () => {
         if (!name || !unit || !price) {
-            alert("Please fill all fields");
+            toast.error("Please fill all fields");
             return;
         }
         try {
             setLoading(true);
             const newItem = { name, unit, price: Number(price), };
             await createMenuItem(newItem);
-            alert("Menu item added successfully!");
+            toast.success("Menu item added successfully!");
             setName("");
             setUnit("");
             setPrice("");
             closeForm();
         } catch (error) {
-            console.error("Error creating menu item", error);
+            toast.error("Something went wrong!");
         } finally {
             setLoading(false);
         }

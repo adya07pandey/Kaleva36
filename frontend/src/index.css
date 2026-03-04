@@ -108,10 +108,12 @@ html, body, #root {
 .menulist{
   margin-top: 20px;
 }
+
 .menu-card,.menu-card-header{
  
   display: grid;
-  grid-template-columns: 3.5fr 1fr 1fr;
+  grid-template-columns: 2.5fr 1fr 1fr 0.1fr;
+  
   justify-content: space-between;
   align-items: flex-start;
   background-color: #f3daa4;
@@ -121,12 +123,22 @@ html, body, #root {
   margin-bottom: 2px;
   font-size: 19px;
 }
+
 .menu-card-header{
   background: #f3ac15;
   padding: 0px 10px;
   border-radius: 5px 5px 0px 0px;
 }
-
+.delete-btn {
+  background: none;
+  color: red;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+}
 .submitbtn{
   padding: 6px;
   background-color: #f3ac15;
@@ -246,6 +258,7 @@ html, body, #root {
   z-index: 2000;
   overflow: scroll;
   padding: 2px;
+  cursor: pointer;
 }
 .dropdown-item{
   padding: 2px;

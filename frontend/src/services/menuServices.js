@@ -7,3 +7,6 @@ export const createMenuItem = (data) =>
   api.post("/menu", data);
 
 export const getMenuItems = () => api.get("/menu/items");
+
+export const deleteMenuItem = (id) =>
+  api.delete(`/menu/${id}`);
