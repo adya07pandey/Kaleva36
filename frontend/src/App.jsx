@@ -8,14 +8,14 @@ function App() {
 
   return (
     <Router>
-      {needRefresh && (
+      {/* {needRefresh && (
         <div className="update-banner">
           New version available
           <button onClick={() => updateServiceWorker(true)}>
             Update
           </button>
         </div>
-      )}
+      )} */}
 
       <Routes>
         <Route path="/" element={<OrdersPage />} />
