@@ -22,7 +22,6 @@ app.use("/api/orders", orderRoutes);
 app.use(errorHandler);
 
 app.get("/", (req, res) => {
-  console.log("server is running");
   res.send("Backend is running");
 });
 
