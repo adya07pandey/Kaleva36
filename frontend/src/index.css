@@ -318,3 +318,20 @@ html, body, #root {
   background-color: #f3ac15;
   border: none;
 }
+.order-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.order-controls input,
+.order-controls select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #f3ac15;
+}
+
+.order-controls option{
+  border: #f3ac15;
+  padding: 2px 2px;
+}
