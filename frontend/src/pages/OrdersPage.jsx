@@ -16,11 +16,35 @@ const OrdersPage = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("latest");
 
-  const processedOrders = orders
+  const handleDelete = async (orderId) => {
+    const confirmDelete = window.confirm("Delete this order?");
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteOrder(orderId);
+      toast.success("Order deleted");
+      fetchOrders();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const processedOrders = (Array.isArray(orders) ? orders : [])
     .filter((order) => {
+      const searchText = search.toLowerCase();
+
+      const matchesCustomer =
+        order.customerName?.toLowerCase().includes(searchText);
+
+      const matchesSerial =
+        order.serialNo?.toString().includes(searchText);
+
+      const matchesItems = order.items?.some((item) =>
+        item.name.toLowerCase().includes(searchText)
+      );
+
       const matchesSearch =
-        order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
-        order.serialNo?.toString().includes(search);
+        matchesCustomer || matchesSerial || matchesItems;
 
       const matchesStatus =
         statusFilter === "all" || order.status === statusFilter;
@@ -122,7 +146,7 @@ const OrdersPage = () => {
           {/* Search */}
           <input
             type="text"
-            placeholder="Search by name or order no..."
+            placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -208,6 +232,7 @@ const OrdersPage = () => {
 
                     {/* Buttons Section */}
                     <div className="order-actions">
+
                       {order.status === "ongoing" && (
                         <>
                           <button
@@ -231,6 +256,18 @@ const OrdersPage = () => {
                         >
                           Edit
                         </button>
+
+
+                      )}
+                      {order.status === "ongoing" && (
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(order.id)}
+                        >
+                          Delete
+                        </button>
+
+
                       )}
                     </div>
                   </div>

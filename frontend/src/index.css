@@ -331,7 +331,48 @@ html, body, #root {
   border: 1px solid #f3ac15;
 }
 
-.order-controls option{
-  border: #f3ac15;
-  padding: 2px 2px;
+.order-controls select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #f3ac15;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+.order-controls select:hover {
+  border-color: #888;
+}
+
+.order-controls select:focus {
+  outline: none;
+  border-color: #f3ac15;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.3);
+}
+.order-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.order-controls input,
+.order-controls select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.order-controls select option{
+  border: 1px solid #f3ac15;
+  padding: 2px;
+}
+.delete-btn {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c62828;
 }
